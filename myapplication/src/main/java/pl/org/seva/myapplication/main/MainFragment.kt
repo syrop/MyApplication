@@ -34,7 +34,8 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
         val locale = Locale.getDefault()
         val language = locale.toLanguageTag().substring(0, 2).toUpperCase(locale)
+        val json = "{\"Android\", \"${Build.VERSION.RELEASE}\", \"$language\", \"$screenScr\"}"
 
-        println("wiktor {\"Android\", \"${Build.VERSION.RELEASE}\", \"$language\", \"$screenScr\"}")
+        println("wiktor $json")
     }
 }
