@@ -16,13 +16,9 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-        val a = lifecycleScope.async {
-            cancel()
-            2
-        }
-        GlobalScope.launch {
-            println("wiktor ${a.await()}")
-            println("wiktor ale fajnie")
-        }
+        var url = "1234"
+        val hash = url.lastIndexOf("#")
+        url = url.substring(0, hash)
+        println("wiktor url: $url")
     }
 }
