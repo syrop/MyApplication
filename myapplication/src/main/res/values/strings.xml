@@ -3,6 +3,8 @@
 
     <!-- First fragment. -->
     <string name="first_label">First Fragment</string>
+    <string name="first_next">Next</string>
+    <string name="first_sound">Sound</string>
 
     <!-- Second fragment. -->
     <string name="second_label">Second Fragment</string>
