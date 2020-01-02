@@ -7,6 +7,4 @@
     <!-- Second fragment. -->
     <string name="second_label">Second Fragment</string>
 
-    <!-- Third fragment. -->
-    <string name="third_label">Third Fragment</string>
 </resources>

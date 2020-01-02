@@ -19,20 +19,7 @@
         android:id="@+id/secondFragment"
         android:name="pl.org.seva.myapplication.main.SecondFragment"
         android:label="@string/second_label"
-        tools:layout="@layout/fr_main">
-        <action
-            android:id="@+id/action_secondFragment_to_thirdFragment"
-            app:destination="@id/thirdFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/thirdFragment"
-        android:name="pl.org.seva.myapplication.main.ThirdFragment"
-        android:label="@string/third_label"
-        tools:layout="@layout/fr_main">
-        <action
-            android:id="@+id/action_thirdFragment_to_secondFragment"
-            app:destination="@id/secondFragment" />
+        tools:layout="@layout/fr_second">
     </fragment>
 
 </navigation>

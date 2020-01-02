@@ -10,11 +10,10 @@ import pl.org.seva.myapplication.main.extension.nav
 import pl.org.seva.myapplication.main.extension.invoke
 import pl.org.seva.myapplication.main.extension.onBack
 
-class SecondFragment : Fragment(R.layout.fr_main) {
+class SecondFragment : Fragment(R.layout.fr_second) {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        next { nav(R.id.action_secondFragment_to_thirdFragment) }
         setHasOptionsMenu(true)
 
         onBack {
