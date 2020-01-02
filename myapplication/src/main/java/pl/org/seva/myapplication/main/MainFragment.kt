@@ -13,7 +13,7 @@ import pl.org.seva.myapplication.main.extension.nav
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    var cachedView: View? = null
+    private var cachedView: View? = null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -35,8 +35,6 @@ class MainFragment : Fragment(R.layout.fr_main) {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        println("wiktor onviewcreated")
-
         next {
             nav(R.id.action_mainFragment_to_secondFragment)
         }
