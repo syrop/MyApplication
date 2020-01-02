@@ -5,8 +5,10 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import kotlinx.android.synthetic.main.fr_main.*
 import pl.org.seva.myapplication.R
+import pl.org.seva.myapplication.main.extension.back
 import pl.org.seva.myapplication.main.extension.nav
 import pl.org.seva.myapplication.main.extension.invoke
+import pl.org.seva.myapplication.main.extension.onBack
 
 class SecondFragment : Fragment(R.layout.fr_main) {
 
@@ -14,9 +16,10 @@ class SecondFragment : Fragment(R.layout.fr_main) {
         super.onActivityCreated(savedInstanceState)
         next { nav(R.id.action_secondFragment_to_thirdFragment) }
 
-        requireActivity().onBackPressedDispatcher.addCallback(this) {
+        onBack {
             // Handle the back button event
             println("wiktor second back")
+            back()
         }
     }
 }
