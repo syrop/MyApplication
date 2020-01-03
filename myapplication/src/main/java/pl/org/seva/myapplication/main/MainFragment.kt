@@ -32,13 +32,17 @@ class MainFragment : Fragment(R.layout.fr_main) {
         }
         lifecycleScope.launch {
             createChannel()
+            createChannel(true)
             delay(1000)
-            sendNotification()
+            sendNotification(false)
+            delay(10000)
+            sendNotification(sound = true)
         }
     }
 
-    private fun sendNotification() {
-        val notificationBuilder = Notification.Builder(requireContext(), CHANNEL_NAME)
+    private fun sendNotification(sound: Boolean = true) {
+        val channelName = "$CHANNEL_NAME$sound"
+        val notificationBuilder = Notification.Builder(requireContext(), channelName)
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Lorem ipsum")
@@ -50,8 +54,9 @@ class MainFragment : Fragment(R.layout.fr_main) {
     }
 
     private fun createChannel(sound: Boolean = true) {
+        val name = "$CHANNEL_NAME$sound"
         val channel = NotificationChannel(
-                CHANNEL_NAME,
+                name,
                 getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT)
         val uri =
@@ -65,6 +70,12 @@ class MainFragment : Fragment(R.layout.fr_main) {
         val notificationManager =
                 requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun deleteChannel() {
+        val notificationManager =
+                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.deleteNotificationChannel(CHANNEL_NAME)
     }
 
     companion object {
