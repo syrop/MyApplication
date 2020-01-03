@@ -1,43 +1,73 @@
 package pl.org.seva.myapplication.main
 
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.content.Context
+import android.media.MediaPlayer
+import android.net.Uri
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fr_main.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.main.extension.invoke
 import pl.org.seva.myapplication.main.extension.nav
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    private var cachedView: View? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        println("wiktor on attach")
-        println("wiktor $next")
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        if (cachedView == null) {
-            println("wiktor creating the view")
-            cachedView = super.onCreateView(inflater, container, savedInstanceState)
-        }
-        return cachedView
-    }
-
-    override fun onStart() {
-        super.onStart()
-        println("wiktor on start")
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         next {
             nav(R.id.action_mainFragment_to_secondFragment)
         }
+        sound {
+            val mp = MediaPlayer.create(requireContext(), R.raw.knock_fingers_on_the_table)
+            mp.setOnCompletionListener {
+                it.release()
+            }
+            mp.start()
+        }
+        lifecycleScope.launch {
+            createChannel()
+            delay(1000)
+            sendNotification()
+        }
+    }
 
+    private fun sendNotification() {
+        val notificationBuilder = Notification.Builder(requireContext(), CHANNEL_NAME)
+        notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
+                .setContentTitle(getString(R.string.app_name))
+                .setContentText("Lorem ipsum")
+                .setAutoCancel(true)
+
+        val notificationManager =
+                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.notify(0, notificationBuilder.build())
+    }
+
+    private fun createChannel(sound: Boolean = true) {
+        val channel = NotificationChannel(
+                CHANNEL_NAME,
+                getString(R.string.app_name),
+                NotificationManager.IMPORTANCE_DEFAULT)
+        val uri =
+                if (sound) {
+                    Uri.parse("android.resource://" +
+                            requireContext().packageName + "/" + R.raw.knock_fingers_on_the_table)
+                }
+                else null
+        channel.setSound(uri, null)
+
+        val notificationManager =
+                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(channel)
+    }
+
+    companion object {
+        private const val CHANNEL_NAME = "channel"
     }
 }
