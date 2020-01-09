@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fr_main.*
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.main.extension.invoke
@@ -32,17 +33,15 @@ class MainFragment : Fragment(R.layout.fr_main) {
         }
         lifecycleScope.launch {
             createChannel()
-            createChannel(true)
             delay(1000)
-            sendNotification(false)
-            delay(10000)
-            sendNotification(sound = true)
+            sendNotification()
         }
+
+        val a = flow { emit(2) }
     }
 
     private fun sendNotification(sound: Boolean = true) {
-        val channelName = "$CHANNEL_NAME$sound"
-        val notificationBuilder = Notification.Builder(requireContext(), channelName)
+        val notificationBuilder = Notification.Builder(requireContext(), CHANNEL_NAME)
         notificationBuilder.setSmallIcon(R.mipmap.ic_launcher)
                 .setContentTitle(getString(R.string.app_name))
                 .setContentText("Lorem ipsum")
@@ -53,29 +52,17 @@ class MainFragment : Fragment(R.layout.fr_main) {
         notificationManager.notify(0, notificationBuilder.build())
     }
 
-    private fun createChannel(sound: Boolean = true) {
-        val name = "$CHANNEL_NAME$sound"
+    private fun createChannel() {
         val channel = NotificationChannel(
-                name,
+                CHANNEL_NAME,
                 getString(R.string.app_name),
                 NotificationManager.IMPORTANCE_DEFAULT)
-        val uri =
-                if (sound) {
-                    Uri.parse("android.resource://" +
-                            requireContext().packageName + "/" + R.raw.knock_fingers_on_the_table)
-                }
-                else null
-        channel.setSound(uri, null)
+        channel.setSound(null, null)
+        channel.enableVibration(true)
 
         val notificationManager =
                 requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         notificationManager.createNotificationChannel(channel)
-    }
-
-    private fun deleteChannel() {
-        val notificationManager =
-                requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        notificationManager.deleteNotificationChannel(CHANNEL_NAME)
     }
 
     companion object {
