@@ -9,7 +9,6 @@ import org.kodein.di.generic.bind
 import org.kodein.di.generic.instance
 import org.kodein.di.generic.multiton
 import org.kodein.di.generic.singleton
-import pl.org.seva.myapplication.BuildConfig
 import java.util.logging.Logger
 
 inline fun <reified T : Any> instance(tag: Any? = null) = Kodein.global.instance<T>(tag)
