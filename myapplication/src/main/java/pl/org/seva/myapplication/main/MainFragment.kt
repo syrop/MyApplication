@@ -3,6 +3,7 @@ package pl.org.seva.myapplication.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fr_main.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.flow
@@ -17,6 +18,11 @@ class MainFragment : Fragment(R.layout.fr_main) {
             nav(R.id.action_mainFragment_to_secondFragment)
         }
 
+        lifecycleScope.launch {
+            withTimeout(5_000) {
+
+            }
+        }
         val scope = CoroutineScope(Job())
 
         scope.launch {
