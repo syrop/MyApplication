@@ -62,7 +62,7 @@ dependencies {
     // RxKotlin
     // RxKotlin 2.4.0 collides with RxJava 3.
     // implementation 'io.reactivex.rxjava2:rxkotlin:2.4.0'
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC7'
+    implementation 'io.reactivex.rxjava3:rxjava:3.0.0-RC8'
 
     // Testing
     androidTestImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
