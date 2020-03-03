@@ -1,12 +1,13 @@
 package pl.org.seva.myapplication.main.init
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatDelegate
-
-val bootstrap by instance<Bootstrap>()
+import pl.org.seva.myapplication.main.createNotificationChannels
 
 class Bootstrap {
 
-    fun boot() {
+    fun boot(ctx: Context) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+        createNotificationChannels(ctx)
     }
 }

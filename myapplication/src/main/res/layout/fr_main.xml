@@ -11,14 +11,6 @@
         android:layout_height="wrap_content"
         android:text="@string/first_next"/>
 
-    <Button
-        android:id="@+id/sound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/first_sound"
-        android:layout_below="@id/next"/>
-
-
     <TextView
         android:id="@+id/prompt"
         android:text="@string/first_label"
