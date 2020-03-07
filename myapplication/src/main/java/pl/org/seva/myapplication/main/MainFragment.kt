@@ -15,6 +15,8 @@ class MainFragment : Fragment(R.layout.fr_main) {
             nav(R.id.action_mainFragment_to_secondFragment)
         }
 
-        notify(requireContext(), "Lorem ipsum")
+        buildString {
+
+        }
     }
 }
