@@ -3,8 +3,11 @@ package pl.org.seva.myapplication.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import io.reactivex.rxjava3.core.Single
+import androidx.lifecycle.lifecycleScope
+import io.reactivex.Single
 import kotlinx.android.synthetic.main.fr_main.*
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.rx2.await
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.main.extension.invoke
 import pl.org.seva.myapplication.main.extension.nav
@@ -16,6 +19,9 @@ class MainFragment : Fragment(R.layout.fr_main) {
             nav(R.id.action_mainFragment_to_secondFragment)
         }
 
-        Single.just(1)
+        lifecycleScope.launch {
+            val a = Single.just(1).await()
+
+        }
     }
 }
