@@ -6,7 +6,7 @@ import rx.Observer
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
-suspend fun <T> Observable<T>.awaitSingle() = suspendCancellableCoroutine<T> { cont ->
+suspend fun <T : Any> Observable<T>.awaitSingle() = suspendCancellableCoroutine<T> { cont ->
 
     val subscription = subscribe(object : Observer<T> {
         private var value: T? = null
@@ -28,7 +28,7 @@ suspend fun <T> Observable<T>.awaitSingle() = suspendCancellableCoroutine<T> { c
 
         override fun onCompleted() {
             if (seenValue) {
-                if (cont.isActive) cont.resume(value!!)
+                if (cont.isActive) cont.resume(checkNotNull(value))
                 return
             }
             when {
