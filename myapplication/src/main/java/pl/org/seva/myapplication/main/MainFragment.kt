@@ -9,8 +9,9 @@ import io.reactivex.subjects.PublishSubject
 import kotlinx.android.synthetic.main.fr_main.*
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.await
-import kotlinx.coroutines.rx2.awaitFirst
+import kotlinx.coroutines.rx2.awaitSingle
 import pl.org.seva.myapplication.R
+import pl.org.seva.myapplication.main.extension.awaitSingle
 import pl.org.seva.myapplication.main.extension.invoke
 import pl.org.seva.myapplication.main.extension.nav
 import rx.Observable
@@ -23,11 +24,12 @@ class MainFragment : Fragment(R.layout.fr_main) {
         }
 
         lifecycleScope.launch {
-            Observable.just(1)
+            val a = checkNotNull(Observable.just(1).awaitSingle())
+            println("wiktor received value $a")
         }
 
         lifecycleScope.launch {
-            val subject = PublishSubject.create<Int>().awaitFirst()
+            val subject = PublishSubject.create<Int>().awaitSingle()
 
             val a = Single.just(1).await()
         }
