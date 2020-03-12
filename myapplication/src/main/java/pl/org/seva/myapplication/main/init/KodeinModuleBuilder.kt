@@ -2,6 +2,7 @@ package pl.org.seva.myapplication.main.init
 
 import android.content.Context
 import android.os.Build
+import androidx.test.espresso.idling.CountingIdlingResource
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinProperty
 import org.kodein.di.conf.global
@@ -23,5 +24,6 @@ class KodeinModuleBuilder(private val ctx: Context) {
     fun build() = Kodein.Module("main") {
         bind<Bootstrap>() with singleton { Bootstrap() }
         bind<Logger>() with multiton { tag: String -> logger(tag) }
+        bind<CountingIdlingResource>() with singleton { CountingIdlingResource("espresso") }
     }
 }
