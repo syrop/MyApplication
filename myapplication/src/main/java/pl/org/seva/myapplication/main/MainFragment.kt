@@ -7,9 +7,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.test.espresso.idling.CountingIdlingResource
 import io.reactivex.Single
 import kotlinx.android.synthetic.main.fr_main.*
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.rx2.await
+import kotlinx.coroutines.withContext
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.main.extension.invoke
 import pl.org.seva.myapplication.main.extension.nav
@@ -17,22 +19,22 @@ import pl.org.seva.myapplication.main.init.instance
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    private val idlingRes by instance<CountingIdlingResource>()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        next {
-            nav(R.id.action_mainFragment_to_secondFragment)
-        }
-
+        var i = 1L
+        val time = System.currentTimeMillis()
         lifecycleScope.launch {
-            idlingRes.increment()
-            delay(SPLASH_DURATION)
-            splash.visibility = View.GONE
-            idlingRes.decrement()
+            while (true) {
+                prompt.text = i.toString()
+                withContext(Dispatchers.Default) {
+                    i++
+                }
+            }
         }
-    }
-
-    companion object {
-        private const val SPLASH_DURATION = 3500L
+        lifecycleScope.launch {
+            while (true) {
+                next.text = ((System.currentTimeMillis() - time) / 1000L).toString()
+                delay(1000L)
+            }
+        }
     }
 }
