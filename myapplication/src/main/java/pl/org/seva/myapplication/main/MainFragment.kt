@@ -19,7 +19,7 @@ import pl.org.seva.myapplication.main.init.instance
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?,) {
         var i = 1L
         val time = System.currentTimeMillis()
         lifecycleScope.launch {
