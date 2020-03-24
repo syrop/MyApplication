@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import kotlinx.android.synthetic.main.fr_main.*
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -30,5 +32,7 @@ class MainFragment : Fragment(R.layout.fr_main) {
                 delay(1000L)
             }
         }
+
+        val a = BroadcastChannel<Int>(Channel.CONFLATED)
     }
 }
