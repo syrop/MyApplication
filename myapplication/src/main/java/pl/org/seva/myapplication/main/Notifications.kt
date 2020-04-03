@@ -1,11 +1,9 @@
 package pl.org.seva.myapplication.main
 
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.content.Context
-import android.graphics.BitmapFactory
-import android.widget.RemoteViews
+import android.graphics.Bitmap
 import androidx.core.app.NotificationCompat
 import pl.org.seva.myapplication.R
 
@@ -25,11 +23,9 @@ fun createNotificationChannels(ctx: Context) {
     notificationManager.createNotificationChannel(channel)
 }
 
-fun notify(ctx: Context, title: String, content: String) {
+fun notify(ctx: Context, title: String, content: String, bitmap: Bitmap? = null) {
     val notificationManager =
             ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-    val notificationLayoutExpanded = RemoteViews(ctx.packageName, R.layout.notification_large)
 
     val notificationBuilder = NotificationCompat.Builder(ctx, NOTIFICATION_CHANNEL_NAME)
 
@@ -37,8 +33,11 @@ fun notify(ctx: Context, title: String, content: String) {
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(title)
             .setStyle(NotificationCompat.BigTextStyle().bigText(content))
-            .setLargeIcon(BitmapFactory.decodeResource(ctx.resources, R.drawable.eye))
             .setAutoCancel(true)
+
+    if (bitmap != null) {
+        notificationBuilder.setLargeIcon(bitmap)
+    }
 
     notificationManager.notify(0, notificationBuilder.build())
 }
