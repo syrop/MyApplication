@@ -57,8 +57,11 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
     implementation 'androidx.navigation:navigation-fragment-ktx:2.2.2'
     implementation 'androidx.navigation:navigation-ui-ktx:2.2.2'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta4'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta6'
     implementation 'com.google.android.material:material:1.2.0-alpha06'
+
+    // GSON
+    implementation 'com.google.code.gson:gson:2.8.6'
 
     // RxKotlin
     // RxKotlin 2.4.0 collides with RxJava 3.
