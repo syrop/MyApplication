@@ -10,16 +10,28 @@ import kotlin.random.Random
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    private val unsorted = arrayOfNulls<Int>(5)
-
+    private val array = Array(SIZE) { 0 }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         generate {
             repeat(SIZE) {
-                unsorted[it] = Random.nextInt(RANGE)
+                array[it] = Random.nextInt(RANGE)
             }
-            unsorted_view.text = unsorted.contentToString()
+            unsorted.text = array.contentToString()
+        }
+
+        sort {
+            for (i in SIZE - 1 downTo 0) {
+                repeat(i) { j ->
+                    if (array[j] > array[j + 1]) {
+                        val temp = array[j]
+                        array[j] = array[j + 1]
+                        array[j + 1] = temp
+                    }
+                }
+            }
+            sorted.text = array.contentToString()
         }
     }
 

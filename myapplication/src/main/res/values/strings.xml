@@ -4,5 +4,6 @@
     <!-- First fragment. -->
     <string name="first_label">First Fragment</string>
     <string name="first_generate">Generate</string>
+    <string name="first_sort">Sort</string>
 
 </resources>
