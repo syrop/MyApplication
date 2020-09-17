@@ -9,8 +9,6 @@ import pl.org.seva.myapplication.R
 class MainFragment : Fragment(R.layout.fr_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        repeat(4) {
-            println("wiktor Default-${'a' + it}")
-        }
+
     }
 }

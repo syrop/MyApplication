@@ -18,6 +18,6 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        GlobalScope.launch { bootstrap.boot(this@MyApplication) }
+        GlobalScope.launch { bootstrap.boot() }
     }
 }
