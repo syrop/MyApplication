@@ -16,25 +16,29 @@ class MainFragment : Fragment(R.layout.fr_main) {
         println("wiktor 1 in %.2f".format(oneIn))
         val casesInPerCent = CASES_TOTAL / PER_CENT
         println("wiktor %% per day: %.4f".format(PER_DAY / casesInPerCent))
-        val inXDays = CASES_TOTAL + DAYS * PER_DAY
+        val inXDays = CASES_TOTAL + DAYS_LINEAR * PER_DAY
         val perCentInXDays = inXDays / casesInPerCent
         val inXDaysOneIn = 1 / (perCentInXDays / 100.0)
-        println("wiktor in $DAYS days 1 in %.2f".format(inXDaysOneIn))
+        println("wiktor in $DAYS_LINEAR days 1 in %.2f".format(inXDaysOneIn))
         val daysUntilAll = (casesInPerCent * (100.0 - PER_CENT) / PER_DAY).toInt()
         println("wiktor ${daysUntilAll.toYears()} days until all")
         println("wiktor EXPONENTIAL")
         println("wiktor %% per day: %.3f".format(perCentDaily()))
+        println("wiktor %% per $DAYS_EXPONENTIAL days: %.1f".format(perCentInDays(DAYS_EXPONENTIAL)))
         println("wiktor doubling every %.3f days".format(doubling()))
-        var cases = CASES_TOTAL
-        val all = (casesInPerCent * 100.0).roundToInt()
-        var day = 0
-        while (cases < all) {
-            day++
-            val perDay = perDay(day)
-            cases += perDay
-            println("wiktor day $day: $perDay")
+        if (doubling() > 0.0) {
+            var cases = CASES_TOTAL
+            val all = (casesInPerCent * 100.0).roundToInt()
+            var day = 0
+            while (cases < all) {
+                day++
+                val perDay = perDay(day)
+                cases += perDay
+                val perCent = cases.toDouble() / all.toDouble() * 100.0
+                println("wiktor day $day daily: $perDay total: %.2f%%".format(perCent))
+            }
+            println("wiktor ${day.toYears()}: $cases")
         }
-        println("wiktor ${day.toYears()}: $cases")
     }
 
     private fun perDay(day: Int): Int {
@@ -42,21 +46,30 @@ class MainFragment : Fragment(R.layout.fr_main) {
         return (PER_DAY * root.pow(day.toDouble())).roundToInt()
     }
 
-    private fun doubling() = log(2.0, perCentDaily() / 100.0 + 1.0)
+    private fun doubling(): Double {
+        val perCent = perCentInDays(DAYS_EXPONENTIAL)
+        val daily = (perCent / 100.0 + 1.0).pow(1.0 / DAYS_EXPONENTIAL)
+        return log(2.0, daily)
+    }
 
-    private fun perCentDaily() = ((PER_DAY.toDouble() / YESTERDAY.toDouble()) - 1.0) * 100.0
+    private fun perCentDaily() = perCentInDays(1)
 
-    private fun Int.toYears() = "${(this / DAYS_IN_YEAR).toInt()} years ${(this % DAYS_IN_YEAR).roundToInt()} days"
+    private fun perCentInDays(days: Int) =
+            (CASES[0].toDouble() / CASES[days].toDouble() - 1.0) * 100.0
+
+    private fun Int.toYears() =
+            "${(this / DAYS_IN_YEAR).toInt()} years ${(this % DAYS_IN_YEAR).roundToInt()} days"
 
     companion object {
-        const val PER_DAY = 5_300
-        const val YESTERDAY = 4_739
-        const val CASES_TOTAL = 121_638
-        const val PER_CENT = 0.32
+        const val PER_DAY = 4_178
+        const val CASES_TOTAL = 125_816
+        const val PER_CENT = 0.33
 
-        const val DAYS = 100
+        const val DAYS_LINEAR = 100
+        const val DAYS_EXPONENTIAL = 7
         const val DAYS_IN_YEAR = 365.25
         val CASES = arrayOf(
+                4_178,
                 5_300,
                 4_739,
                 4_280,
@@ -103,6 +116,35 @@ class MainFragment : Fragment(R.layout.fr_main) {
                 791,
                 887,
                 729,
+                763,
+                548,
+                581,
+                900,
+                903,
+                767,
+                735,
+                597,
+                595,
+                594,
+                771,
+                832,
+                811,
+                715,
+                551,
+                619,
+                624,
+                843,
+                809,
+                726,
+                640,
+                680,
+                575,
+                548,
+                658,
+                657,
+                615,
+                512,
+                502,
                 )
     }
 }
