@@ -13,8 +13,10 @@ class MainFragment : Fragment(R.layout.fr_main) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val oneIn = 1.0 / (PER_CENT / 100.0)
         println("wiktor LINEAR")
-        println("wiktor 1 in %.2f".format(oneIn))
         val casesInPerCent = CASES_TOTAL / PER_CENT
+        val all = (casesInPerCent * 100.0).roundToInt()
+        println("wiktor factor: %.2f".format(PER_DAY * 100_000.0 / all))
+        println("wiktor 1 in %.2f".format(oneIn))
         println("wiktor %% per day: %.4f".format(PER_DAY / casesInPerCent))
         val inXDays = CASES_TOTAL + DAYS_LINEAR * PER_DAY
         val perCentInXDays = inXDays / casesInPerCent
@@ -28,7 +30,7 @@ class MainFragment : Fragment(R.layout.fr_main) {
         println("wiktor doubling every %.3f days".format(doubling()))
         if (doubling() > 0.0) {
             var cases = CASES_TOTAL
-            val all = (casesInPerCent * 100.0).roundToInt()
+
             var day = 0
             while (cases < all) {
                 day++
@@ -60,15 +62,41 @@ class MainFragment : Fragment(R.layout.fr_main) {
     private fun Int.toYears() =
             "${(this / DAYS_IN_YEAR).toInt()} years ${(this % DAYS_IN_YEAR).roundToInt()} days"
 
+    @Suppress("SpellCheckingInspection")
     companion object {
-        const val PER_DAY = 4_178
-        const val CASES_TOTAL = 125_816
-        const val PER_CENT = 0.33
-
-        const val DAYS_LINEAR = 100
-        const val DAYS_EXPONENTIAL = 7
-        const val DAYS_IN_YEAR = 365.25
+        const val PER_DAY = 27_875
+        const val CASES_TOTAL = 521_640
+        const val PER_CENT = 1.38
+        const val DAYS_EXPONENTIAL = 28
+        // 26_600-28_500: przy takiej średniej z 7 dni będzie narodowa kwarantanna
         val CASES = arrayOf(
+                27_875,
+                27_086,
+                27_143,
+                24_499,
+                19_364,
+                15_578,
+                17_171,
+                21_897,
+                21_629,
+                20_156,
+                18_820,
+                16_300,
+                10_241,
+                11_742,
+                13_628,
+                13_632,
+                12_107,
+                10_040,
+                9_291,
+                7_482,
+                8_536,
+                9_622,
+                7_705,
+                8_099,
+                6_526,
+                5_068,
+                4_394,
                 4_178,
                 5_300,
                 4_739,
@@ -146,5 +174,7 @@ class MainFragment : Fragment(R.layout.fr_main) {
                 512,
                 502,
                 )
+        const val DAYS_LINEAR = 100
+        const val DAYS_IN_YEAR = 365.25
     }
 }
