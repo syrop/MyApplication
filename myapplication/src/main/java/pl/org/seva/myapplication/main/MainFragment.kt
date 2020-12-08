@@ -3,19 +3,30 @@ package pl.org.seva.myapplication.main
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import pl.org.seva.myapplication.R
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val product = BEGIN_WITH.toCharArray()
-        for (i in BEGIN_WITH.indices step 2) {
-            product[i] = product[i].toUpperCase()
-        }
-        println("wiktor ${String(product)}")
+    private suspend fun a() = suspendCancellableCoroutine<Int> { continuation ->
+        continuation.resumeWith(Result.success(1))
     }
 
-    companion object {
-        const val BEGIN_WITH = "cie gjal łang po"
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        lifecycleScope.launch {
+            println("wiktor ${a()}")
+        }
+    }
+
+    class VM : ViewModel() {
+        fun a() {
+            viewModelScope.launch {
+
+            }
+        }
     }
 }
