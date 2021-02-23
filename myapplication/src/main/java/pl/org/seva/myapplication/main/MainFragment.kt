@@ -17,15 +17,15 @@ import kotlin.random.Random
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
-    private var _binding: FrMainBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FrMainBinding
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
-        _binding = FrMainBinding.inflate(inflater, container, false)
+        binding = FrMainBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
@@ -40,10 +40,5 @@ class MainFragment : Fragment(R.layout.fr_main) {
         println("wiktor equals: ${a == b}")
         println("wiktor a: ${a.b}")
         println("wiktor b: ${b.b}")
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
