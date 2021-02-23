@@ -13,6 +13,7 @@ import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
 import kotlin.math.pow
 import kotlin.math.sqrt
+import kotlin.random.Random
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
@@ -28,28 +29,17 @@ class MainFragment : Fragment(R.layout.fr_main) {
         return binding.root
     }
 
-    private fun consecutive(num: Long): Int {
-        val x = HashSet<Int>()
-
-        fun solutions(a: Long, b: Long) {
-            val delta = (2 * a + 1).toDouble().pow(2) -4 * (2*a - 2 * b)
-            val sqrtDelta = sqrt(delta)
-            val x1 = (-2 * a - 1 - sqrtDelta) / 2
-            val x2 = (-2 * a - 1 + sqrtDelta) / 2
-            println("wiktor x1 $x1")
-            println("wiktor x2 $x2")
-            val s1 = (2 + x1)/2*(x1 + 1)
-            println("wiktor s1 $s1")
-        }
-
-        solutions(1, num)
-        return 0
+    data class A(val a: Int) {
+        val b = Random.nextInt()
     }
 
     @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        consecutive(10)
-        consecutive(15)
+        val a = A(0)
+        val b = A(0)
+        println("wiktor equals: ${a == b}")
+        println("wiktor a: ${a.b}")
+        println("wiktor b: ${b.b}")
     }
 
     override fun onDestroyView() {
