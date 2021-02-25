@@ -24,7 +24,6 @@ class MainFragment : Fragment(R.layout.fr_main) {
         return binding.root
     }
 
-
     @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d("krowa", "wiktor krowa")
