@@ -64,10 +64,10 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
     @Suppress("SpellCheckingInspection")
     companion object {
-        const val PER_DAY = 15_362
-        const val CASES_TOTAL = 924_422
-        const val PER_CENT = 2.45
-        const val DAYS_EXPONENTIAL = 28
+        const val PER_DAY = 27_278
+        const val CASES_TOTAL = 1_984_248
+        const val PER_CENT = 5.26
+        const val DAYS_EXPONENTIAL = 7
         // 26_600-28_500: przy takiej średniej z 7 dni będzie narodowa kwarantanna
         val CASES = arrayOf(
             27_278,
