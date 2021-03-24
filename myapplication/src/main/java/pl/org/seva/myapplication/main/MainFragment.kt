@@ -19,8 +19,6 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
     private lateinit var binding: FrMainBinding
 
-    private val flow = MutableStateFlow(0)
-
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
