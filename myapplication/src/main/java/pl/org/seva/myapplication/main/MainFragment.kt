@@ -24,10 +24,7 @@ class MainFragment : Fragment(R.layout.fr_main) {
         return binding.root
     }
 
-    @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            val a = this + Dispatchers.Main
-        }
+        println("wiktor kodein: ${System.identityHashCode(kodein)}")
     }
 }
