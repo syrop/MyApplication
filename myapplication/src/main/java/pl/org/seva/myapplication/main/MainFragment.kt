@@ -5,14 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.lifecycleScope
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
 
