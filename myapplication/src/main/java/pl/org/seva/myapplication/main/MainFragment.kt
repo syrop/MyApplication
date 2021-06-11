@@ -5,6 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
 
@@ -25,26 +29,11 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        fun Basia.czeslaw() {
-            b = object : Ala() {
-            }
+        val stateFlow = MutableStateFlow(0)
+        GlobalScope.launch {
+            stateFlow.value++
+            delay(1000)
         }
 
-        val a = Basia()
-        val b = Basia()
-        a.czeslaw()
-        b.czeslaw()
-        a.b.a++
-        println("wiktor a: ${a.b.a}")
-        println("wiktor b: ${b.b.a}")
     }
-}
-
-class Basia {
-    lateinit var b: Ala
-}
-
-open class Ala {
-    var a = 0
 }
