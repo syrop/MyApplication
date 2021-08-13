@@ -11,6 +11,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
+import io.reactivex.Completable
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
