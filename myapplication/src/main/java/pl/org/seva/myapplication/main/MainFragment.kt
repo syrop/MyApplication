@@ -5,10 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
+import io.reactivex.Completable
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
@@ -19,15 +22,19 @@ class MainFragment : Fragment(R.layout.fr_main) {
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View {
+        println("wiktor on create view")
         binding = FrMainBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         return binding.root
     }
 
-    @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        lifecycleScope.launch {
-            val a = this + Dispatchers.Main
+        super.onViewCreated(view, savedInstanceState)
+        val stateFlow = MutableStateFlow(0)
+        GlobalScope.launch {
+            stateFlow.value++
+            delay(1000)
         }
+
     }
 }
