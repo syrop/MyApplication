@@ -5,24 +5,21 @@ import android.util.Base64
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Switch
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.FrMainBinding
+import pl.org.seva.myapplication.main.init.PriorityExecutor
 import java.text.SimpleDateFormat
+import java.util.concurrent.ThreadPoolExecutor
 
 class MainFragment : Fragment(R.layout.fr_main) {
 
     private lateinit var binding: FrMainBinding
-
-    private val data = MutableLiveData(0)
-
-    private val flow = MutableStateFlow(0)
-
-    val ftv: FadingTextView
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -35,17 +32,43 @@ class MainFragment : Fragment(R.layout.fr_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        decode("WlhsS2FHSkhZMmxQYVVwSlZYcEpNVTVwU1hOSmJsSTFZME5KTmtscmNGaFdRMG81TG1WNVNubGlNbmhzU1dwdmFWVnJWa2hUVms1VlVsWktSbEpEU1hOSmJXeG9aRU5KTmsxVVdUQk5WR3N6VFdwUk0wOURkMmxhV0doM1NXcHZlRTVxWTNwT1ZFRTBUa1JqTkdaUkxsQnJSMmt4WlU0M0xVRnVWSGN5YTA5c2JISkVVazB3V1VsMU4xOXJUbVJDYjE5eVJqWmhiRGhHVTBFPTpZVFUzWXpaalpXSTROalEzTjJObU1nPT0=")
 
+        val flow0 = MutableStateFlow(0)
+        val flow1 = MutableStateFlow(1)
 
+        PriorityExecutor.submitAction(flow0) {
+            a(0)
+        }
+
+        PriorityExecutor.submitAction(flow1) {
+            a(1)
+        }
+
+        lifecycleScope.launch {
+            while(true) {
+                delay(SWITCH_DELAY)
+                println("wiktor reversing")
+                flow0.value = 1
+                flow1.value = 0
+                delay(SWITCH_DELAY)
+                println("wiktor switching back")
+                flow0.value = 0
+                flow1.value = 1
+            }
+        }
     }
 
-    private fun decode(str: String) {
-        val a = String(Base64.decode(str, Base64.NO_WRAP))
-        val b = a.substring(0, a.indexOf(":"))
-        println("wiktor $a")
-        println("wiktor $b")
-        val c = String(Base64.decode(b, Base64.NO_WRAP))
-        println("wiktor decoded token: $c")
+    private suspend fun a(id: Int) {
+        while (true) {
+            Thread.sleep(DELAY)
+            yield()
+            println("wiktor coroutine $id")
+        }
     }
+
+    companion object {
+        const val DELAY = 1000L
+        const val SWITCH_DELAY = 5000L
+    }
+
 }
