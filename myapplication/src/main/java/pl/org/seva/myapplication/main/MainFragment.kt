@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import pl.org.seva.myapplication.BuildConfig
 import pl.org.seva.myapplication.databinding.FrMainBinding
 
 class MainFragment : Fragment() {
@@ -18,6 +19,12 @@ class MainFragment : Fragment() {
     ): View {
         binding = FrMainBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.prompt.text = BuildConfig.VERSION_NAME
     }
 
 }
