@@ -1,9 +1,12 @@
 package pl.org.seva.myapplication.main
 
 import android.app.Application
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import pl.org.seva.myapplication.main.init.Bootstrap
+import kotlin.coroutines.EmptyCoroutineContext
 
 @Suppress("unused")
 class MyApplication : Application() {
@@ -12,6 +15,7 @@ class MyApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        GlobalScope.launch { bootstrap.boot(this@MyApplication) }
+        bootstrap.context = this
+        CoroutineScope(EmptyCoroutineContext).launch { bootstrap.boot(this@MyApplication) }
     }
 }
