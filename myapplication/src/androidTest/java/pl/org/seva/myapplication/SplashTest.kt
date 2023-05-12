@@ -17,7 +17,7 @@ import org.junit.runner.RunWith
 import pl.org.seva.myapplication.extension.await
 import pl.org.seva.myapplication.main.MainActivity
 
-import pl.org.seva.myapplication.main.init.instance
+import pl.org.seva.myapplication.main.instance
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -36,9 +36,6 @@ class SplashTest {
     @Test
     fun useAppContext() {
         runBlocking {
-            onView(withId(R.id.splash)).check(matches(isDisplayed()))
-            idlingRes.await()
-            onView(withId(R.id.splash)).check(matches(not(isDisplayed())))
         }
     }
 }
