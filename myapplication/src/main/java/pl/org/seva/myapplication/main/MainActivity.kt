@@ -8,7 +8,7 @@ import androidx.navigation.ui.NavigationUI
 import pl.org.seva.myapplication.R
 import pl.org.seva.myapplication.databinding.AcMainBinding
 
-class MainActivity : AppCompatActivity() {
+class   MainActivity : AppCompatActivity() {
 
     private val navController by lazy { findNavController(R.id.nav_host_fragment) }
 
